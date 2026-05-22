@@ -70,23 +70,6 @@ $$
 
 **代表的なモデル**：VGG / ResNet / EfficientNet
 
-```python
-import torch.nn as nn
-
-class CNN(nn.Module):
-    def __init__(self):
-        super().__init__()
-        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1)
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
-        self.pool  = nn.MaxPool2d(2, 2)
-        self.relu  = nn.ReLU()
-        self.fc    = nn.Linear(64 * 7 * 7, 10)
-
-    def forward(self, x):
-        x = self.pool(self.relu(self.conv1(x)))
-        x = self.pool(self.relu(self.conv2(x)))
-        x = x.view(x.size(0), -1)
-        return self.fc(x)
 ```
 
 ---
@@ -130,21 +113,6 @@ $$
 | GRU | リセット・更新（2つ） | LSTMより軽量 |
 
 **代表的な用途**：機械翻訳 / 文章生成 / 音声認識
-
-```python
-class LSTMModel(nn.Module):
-    def __init__(self, vocab_size, embed_dim, hidden_dim):
-        super().__init__()
-        self.embedding = nn.Embedding(vocab_size, embed_dim)
-        self.lstm = nn.LSTM(embed_dim, hidden_dim, batch_first=True)
-        self.fc   = nn.Linear(hidden_dim, vocab_size)
-
-    def forward(self, x, hidden=None):
-        emb = self.embedding(x)
-        out, hidden = self.lstm(emb, hidden)
-        return self.fc(out), hidden
-```
-
 ---
 
 ### 2.3 トランスフォーマーモデル
